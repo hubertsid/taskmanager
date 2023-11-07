@@ -13,3 +13,6 @@ def algorithm(...)
 - Framework: Django
 - Baza danych: PostgreSQL
 - Hosting: Heroku
+
+## Interfejsy
+Interfejsy znajdują się w pliku `taskmanager/main/models.py`. 
