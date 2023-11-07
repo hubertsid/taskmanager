@@ -111,7 +111,6 @@ def assignment(request,id):
 
     # step 1 - find tasks with state TO_DO in this project
     task = Task.objects.filter(project_id=id,state="TO_DO")
-
     obj = {}
     for t in task:
         # step 2 - find specialization of task
@@ -211,7 +210,7 @@ def edit_task_status(request, id, task_id):
         new_state = request.POST.get('task_state')
         task.state = new_state
         task.save()
-        return HttpResponse("Hubi dubi")
+        return HttpResponse("Status zmieniono")
 
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=405)
