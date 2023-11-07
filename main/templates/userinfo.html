@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solvro_Backend</title>
+
+  </head>
+  <body>
+	<h1>Profil dewelopera</h1>
+    <h2>{{dev.id}}</h2>
+    <h2>{{dev.name}}</h2>
+	<ul>
+        <h2>Projekty:</h3>
+		{% for p in proj %}
+			<li><a href="{{p.id}}">{{p.id}}</a></li>
+		{% endfor %}
+	</ul>
+  </body>
+</html>

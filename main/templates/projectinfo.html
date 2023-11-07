@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solvro_Backend</title>
+
+  </head>
+  <body>
+	<h1>Projekt {{obj.id}}</h1>
+  <h2>Właściciel: {{obj.user}}</h2>
+
+	<ul>
+        <h2>Deweloperzy:</h2>
+		{% for d in obj.developers.all %}
+			<li><a href="{{d.id}}">{{d.id}}</a></li>
+		{% endfor %}
+        <h2>Taski:</h2>
+		{% for d in obj.tasks.all %}
+			<li>{{d.name}}</li>
+		{% endfor %}
+	</ul>
+  </body>
+</html>

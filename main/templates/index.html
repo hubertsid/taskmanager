@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solvro_Backend</title>
+
+  </head>
+  <body>
+    <h1 class="text-center">TaskManager</h1>
+    <ul>
+      <li><a href="/project">Dodaj projekt</a></li>
+      <li><a href="/users">Dodaj dewelopera</a></li>
+    </ul>
+
+
+    <h1>Projekty:</h1>
+
+    {% for e in proj %}
+    <li><a>{{e.id}}</a></li>
+    {% endfor %}
+
+    <h1>Deweloperzy:</h1>
+
+    {% for e in devs %}
+    <li><a>{{e.id}}</a></li>
+    {% endfor %}
+
+    <h1>Taski:</h1>
+    {% for e in task %}
+    <li><a>id: "{{e.id}}" description: "{{e.name}}"</a></li>
+    <form method="post" action="project/{{e.project_id}}/task/{{e.id}}">
+      <select name="task_state" id="task_state">
+          <option value="TO_DO">To do</option>
+          <option value="IN_PROGRESS">In progress</option>
+          <option value="COMPLETED">Completed</option>
+      </select>
+      <button type="submit">Zmień stan</button>
+  </form>
+
+    {% endfor %}
+  </body>
+</html>
