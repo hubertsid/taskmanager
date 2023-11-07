@@ -29,6 +29,29 @@ def is_fibonacci(number):
     return a == number
 
 
+def algorithm(estimation, completed, assignments):
+    #Algorithm is counting points
+    #Developer with lowest score, gets the job
+    points = 0
+
+    #score 1
+    #Comparing task estimation with completed tasks
+    #we have to find closest number
+    closest = 100_000_000
+    for i in completed:
+        dist = abs(estimation-i.estimation)
+        if dist < closest:
+            closest = dist 
+    points += closest
+
+    #score 2
+    #checking if dev got assignments
+    #if it did score goes up tenfold
+    points += assignments*10
+
+    return points
+
+
 # Widoki
 def index(request):
     proj = Project.objects.all()
@@ -71,7 +94,6 @@ def project(request):
             # Podatność SQL Injection
             new_project.save()
             for i in form.cleaned_data['developers']:
-                print(i)
                 dev = Developer.objects.get(id=i)
                 new_project.developers.add(dev)
             new_project.save()
@@ -84,44 +106,18 @@ def project(request):
         form = ProjectForm()
     return render(request, "projects.html", {'form': form})
 
-
-def algorithm(estimation, completed, assignments):
-    #Algorithm is counting points
-    #Developer with lowest score, gets the job
-    points = 0
-
-    #score 1
-    #Comparing task estimation with completed tasks
-    #we have to find closest number
-    closest = 100_000_000
-    for i in completed:
-        dist = abs(estimation-i.estimation)
-        if dist < closest:
-            closest = dist 
-    points += closest
-
-    #score 2
-    #checking if dev got assignments
-    #if it did score goes up tenfold
-    points += assignments*10
-
-    return points
-
 def assignment(request,id):
     #devs assignment algorithm
 
     # step 1 - find tasks with state TO_DO in this project
     task = Task.objects.filter(project_id=id,state="TO_DO")
-    print(task)
 
     obj = {}
     for t in task:
         # step 2 - find specialization of task
         spec = t.credentials
-        print(spec)
         # step 3 - find a dev with this specialization
         devs = Developer.objects.filter(specialization=f"{spec}")
-        print(devs)
 
         low_score = 100_000_000
         best_dev = None
@@ -137,7 +133,6 @@ def assignment(request,id):
                 low_score = score
         if best_dev != None:
             assigned_devs.append(best_dev.id)
-            print("The type of best_dev is ",type(best_dev))
             obj[t] = best_dev
 
     return render(request,"assignments.html",{'obj':obj,'id':id})
@@ -150,7 +145,6 @@ def project_info(request, id):
     else:
         dev = Developer.objects.get(id=id)
         proj = list(Project.objects.filter(developers__id=id))
-        print(proj)
         return render(request, "userinfo.html", {"dev": dev, "proj": proj})
 
 
@@ -177,7 +171,6 @@ def tasks(request, id=None):
             proj.tasks.add(task)
             proj.save()
             for i in form.cleaned_data['developers']:
-                print(i)
                 dev = Developer.objects.get(id=i)
                 proj.developers.add(dev)
                 task.developers.add(dev)
@@ -186,11 +179,6 @@ def tasks(request, id=None):
             return HttpResponse("Task dodany")
     elif id != None:
         proj = Project.objects.get(id=id)
-        print("+++++"*30)
-        print("devs for ",id)
-        print("+++++"*30)
-        print(proj.developers.all())
-        print("+++++"*30)
         form = TaskForm()
         form.developers = proj.developers.all()
     else:
@@ -198,17 +186,9 @@ def tasks(request, id=None):
     return render(request, "task.html", {'id': id, 'form': form, 'obj': obj})
     
 def assignment_add_dev(request, id, assignment_id):
-    print(request.method)
     if request.method=="POST":
         task = Task.objects.get(id=assignment_id)
         cust_id = request.POST.get('custId')
-        print("=="*20)
-        print(type(task))
-        print(task)
-        print(type(assignment_id))
-        print("=="*20)
-        print(cust_id)
-        print("=="*20)
         task.developers.add(cust_id)
         task.save()
         return HttpResponse("Developer dodany do taska")
@@ -229,7 +209,6 @@ def edit_task_status(request, id, task_id):
         return JsonResponse({'message': 'Task status updated successfully.'})
     elif request.method == "POST":
         new_state = request.POST.get('task_state')
-        print(new_state)
         task.state = new_state
         task.save()
         return HttpResponse("Hubi dubi")

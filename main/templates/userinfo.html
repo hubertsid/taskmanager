@@ -14,7 +14,11 @@
 	<ul>
         <h2>Projekty:</h3>
 		{% for p in proj %}
-			<li><a href="{{p.id}}">{{p.id}}</a></li>
+			<li><h3><a href="{{p.id}}">{{p.id}}</a></h3></li>
+      <h4>Taski: </h4>
+      {% for d in p.tasks.all %}
+      <li>{{d.name}}</li>
+      {% endfor %}
 		{% endfor %}
 	</ul>
   </body>
