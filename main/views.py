@@ -12,11 +12,15 @@ def is_project(id):
     return Project.objects.filter(id=id).exists()
 
 
+USER_TAG = 'users'
+PROJECT_TAG = 'project'
+
+
 def repetition_check(form, tag):
     id = form.cleaned_data['id']
-    if tag == 'users':
+    if tag == USER_TAG:
         return not Project.objects.filter(id=id).exists()
-    elif tag == 'projects':
+    elif tag == PROJECT_TAG:
         return not Developer.objects.filter(id=id).exists()
 
     return False
