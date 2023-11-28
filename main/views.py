@@ -30,13 +30,13 @@ def is_fibonacci(number):
 
 
 def algorithm(estimation, completed, assignments):
-    #Algorithm is counting points
-    #Developer with lowest score, gets the job
+    #Algorytm liczy punkty i przyznaje je deweloperom
+    #Według algorytmu, deweloper o najmniejszej ilości punktów, dostaje pracę
     points = 0
 
     #score 1
-    #Comparing task estimation with completed tasks
-    #we have to find closest number
+    #Porównanie estymacji taska z wykonanymi przez dewelopera do tej pory taskami
+    #szukamy liczby która jest najbliżej
     closest = 100_000_000
     for i in completed:
         dist = abs(estimation-i.estimation)
@@ -45,8 +45,8 @@ def algorithm(estimation, completed, assignments):
     points += closest
 
     #score 2
-    #checking if dev got assignments
-    #if it did score goes up tenfold
+    #sprawdzamy czy deweloper pracuje już nad taskami
+    #przyznawane jest 10 punktów za każdy wykonywany task
     points += assignments*10
 
     return points
