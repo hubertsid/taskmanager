@@ -75,7 +75,6 @@ def users(request):
             return HttpResponseRedirect('/users/')
         else:
             return HttpResponse("Obiekt o tej nazwie znajduje się już w bazie danych")
-
     else:
         form = DeveloperForm()
 
