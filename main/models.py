@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 
 # Create your models here.
@@ -32,7 +33,13 @@ class State(models.TextChoices):
     COMPLETED = 'COMPLETED', 'Completed'
 
 class Task(models.Model):
-    name = models.CharField(max_length=100, default="Unnamed")
+
+    def __init__(self,name=None,project_id=None,
+                 credentials=None,state=None,developers=None,estimation=None,
+                 created_at=None,created_by=None):
+        self.name = name
+
+    name = models.CharField(max_length=100, default=None)
     project_id = models.CharField(max_length=100)
     credentials = models.CharField(
         max_length=100,

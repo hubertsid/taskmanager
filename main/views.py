@@ -136,13 +136,13 @@ def tasks(request, id=None):
                 return HttpResponse("Liczba nie jest liczbą Fibonacciego")
 
             task = Task(
-                name=form.cleaned_data['name'],
-                project_id=id,
-                credentials=form.cleaned_data['credentials'],
-                state=form.cleaned_data['state'],
-                estimation=form.cleaned_data['estimation'],
-                created_at=datetime.datetime.now(),
-                created_by=form.cleaned_data['created_by']
+                form.cleaned_data['name'],
+                id,
+                form.cleaned_data['credentials'],
+                form.cleaned_data['state'],
+                form.cleaned_data['estimation'],
+                datetime.datetime.now(),
+                form.cleaned_data['created_by']
             )
             task.save()
 
