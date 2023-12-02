@@ -38,6 +38,14 @@ class Task(models.Model):
                  credentials=None,state=None,developers=None,estimation=None,
                  created_at=None,created_by=None):
         self.name = name
+        self.project_id=project_id,
+        self.credentials=credentials,
+        self.state=state,
+        self.developers=developers,
+        self.estimation=estimation,
+        self.created_at=created_at,
+        self.created_by=created_by
+
 
     name = models.CharField(max_length=100, default=None)
     project_id = models.CharField(max_length=100)
